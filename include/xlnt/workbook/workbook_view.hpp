@@ -39,7 +39,7 @@ public:
     /// <summary>
     /// If true, dates will be grouped when presenting the user with filtering options.
     /// </summary>
-    bool auto_filter_date_grouping = true;
+    bool auto_filter_date_grouping = false;
 
     /// <summary>
     /// If true, the view will be minimized.
@@ -49,17 +49,17 @@ public:
     /// <summary>
     /// If true, the horizontal scroll bar will be displayed.
     /// </summary>
-    bool show_horizontal_scroll = true;
+    bool show_horizontal_scroll = false;
 
     /// <summary>
     /// If true, the sheet tabs will be displayed.
     /// </summary>
-    bool show_sheet_tabs = true;
+    bool show_sheet_tabs = false;
 
     /// <summary>
     /// If true, the vertical scroll bar will be displayed.
     /// </summary>
-    bool show_vertical_scroll = true;
+    bool show_vertical_scroll = false;
 
     /// <summary>
     /// If true, the workbook window will be visible.

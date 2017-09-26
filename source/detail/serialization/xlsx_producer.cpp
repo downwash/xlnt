@@ -1000,10 +1000,7 @@ void xlsx_producer::write_fill(const fill &f)
 
 		write_start_element(xmlns, "patternFill");
 
-		if (pattern.type() != pattern_fill_type::none)
-		{
-			write_attribute("patternType", pattern.type());
-		}
+		write_attribute("patternType", pattern.type());
 
 		if (pattern.foreground().is_set())
 		{
