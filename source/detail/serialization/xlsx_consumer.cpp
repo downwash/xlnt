@@ -358,7 +358,16 @@ std::string xlsx_consumer::read_worksheet_begin(const std::string &rel_id)
                 else if (sheet_pr_child_element == qn("spreadsheetml", "pageSetUpPr")) // CT_PageSetUpPr 0-1
                 {
                     skip_attribute("autoPageBreaks"); // optional, boolean, true
-                    skip_attribute("fitToPage"); // optional, boolean, false
+                    if (parser().attribute_present("fitToPage")) // optional, boolean, true
+                    {
+                        if (!ws.has_page_setup())
+                        {
+                            ws.page_setup = page_setup();
+                        }
+                        page_setup ps = ws.page_setup();
+                        ps.fit_to_page = parser().attribute("fitToPage"); // Storing this attribute in page_setup to mirror xlsx_producer::write_worksheet()
+                        ws.page_setup(ps);
+                    }
                 }
                 else
                 {
