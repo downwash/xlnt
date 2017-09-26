@@ -247,8 +247,10 @@ public:
                 break;
             }
 
-            if (!compare_files(left_archive.read(left_member),
-                left_archive.read(left_member), left_content_type))
+            if (!compare_files(
+                left_archive.read(left_member),
+                right_archive.read(left_member),
+                left_content_type))
 			{
 				std::cout << left_member.string() << std::endl;
                 match = false;
