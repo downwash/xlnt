@@ -54,25 +54,28 @@ std::string sheet_protection::hashed_password() const
 
 std::string sheet_protection::hash_password(const std::string &plaintext_password)
 {
-    int password = 0x0000;
-    int i = 1;
-
-    for (auto character : plaintext_password)
+    if (hash_algorithm_.empty())
     {
-        int value = character << i;
-        int rotated_bits = value >> 15;
-        value &= 0x7fff;
-        password ^= (value | rotated_bits);
-        i++;
+        int password = 0x0000;
+        int i = 1;
+
+        for (auto character : plaintext_password)
+        {
+            int value = character << i;
+            int rotated_bits = value >> 15;
+            value &= 0x7fff;
+            password ^= (value | rotated_bits);
+            i++;
+        }
+
+        password ^= plaintext_password.size();
+        password ^= 0xCE4B;
+
+        std::string hashed = int_to_hex(password);
+        std::transform(hashed.begin(), hashed.end(), hashed.begin(),
+            [](char c) { return std::toupper(c, std::locale::classic()); });
+
+        return hashed;
     }
-
-    password ^= plaintext_password.size();
-    password ^= 0xCE4B;
-
-    std::string hashed = int_to_hex(password);
-    std::transform(hashed.begin(), hashed.end(), hashed.begin(),
-        [](char c) { return std::toupper(c, std::locale::classic()); });
-
-    return hashed;
 }
 }
